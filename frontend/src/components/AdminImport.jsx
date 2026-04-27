@@ -4,30 +4,30 @@ import ClusteringConfig from './ClusteringConfig';
 import DataTable from './DataTable';
 
 const card = {
-  background: 'rgba(15,20,35,0.9)',
-  border: '1px solid rgba(99,102,241,0.15)',
+  background: 'rgba(6,14,36,0.93)',
+  border: '1px solid rgba(232,119,34,0.15)',
   borderRadius: '16px',
   backdropFilter: 'blur(12px)',
-  boxShadow: '0 4px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+  boxShadow: '0 4px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(27,75,154,0.08)',
 };
 const inputBase = {
-  padding: '9px 14px', background: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(99,102,241,0.2)', borderRadius: '8px',
+  padding: '9px 14px', background: 'rgba(27,75,154,0.08)',
+  border: '1px solid rgba(232,119,34,0.2)', borderRadius: '8px',
   color: '#e2e8f0', fontSize: '13px', fontFamily: 'inherit',
   outline: 'none', transition: 'border-color 0.2s',
 };
 const labelStyle = {
   fontSize: '11px', fontWeight: '600', letterSpacing: '0.8px',
-  color: '#64748b', textTransform: 'uppercase', marginBottom: '6px', display: 'block',
+  color: '#607CA8', textTransform: 'uppercase', marginBottom: '6px', display: 'block',
 };
 
 function TabButton({ active, onClick, icon, label }) {
   return (
     <button onClick={onClick} style={{
       flex: 1, padding: '12px 16px',
-      background: active ? 'rgba(99,102,241,0.15)' : 'transparent',
-      border: active ? '1px solid rgba(99,102,241,0.4)' : '1px solid rgba(255,255,255,0.06)',
-      borderRadius: '10px', color: active ? '#a5b4fc' : '#64748b',
+      background: active ? 'rgba(232,119,34,0.15)' : 'transparent',
+      border: active ? '1px solid rgba(232,119,34,0.4)' : '1px solid rgba(44,123,229,0.1)',
+      borderRadius: '10px', color: active ? '#FFA94D' : '#607CA8',
       fontFamily: 'inherit', fontSize: '13px', fontWeight: '600',
       cursor: 'pointer', transition: 'all 0.2s',
       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
@@ -100,10 +100,10 @@ function AdminImport({ onImportComplete, onDataReady }) {
         {/* ── Import card ─────────────────────────────────────────────────── */}
         <div style={{ ...card, padding: '28px 32px', marginBottom: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '22px' }}>
-            <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', color: 'white', flexShrink: 0 }}>1</div>
+            <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg,#E87722,#1B4B9A)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: '700', color: 'white', flexShrink: 0 }}>1</div>
             <div>
               <h2 style={{ fontSize: '17px', fontWeight: '700', color: '#f1f5f9', letterSpacing: '-0.3px' }}>Source de Données</h2>
-              <p style={{ fontSize: '12px', color: '#475569' }}>Importez un fichier local ou connectez une base de données</p>
+              <p style={{ fontSize: '12px', color: '#4A6A96' }}>Importez un fichier local ou connectez une base de données</p>
             </div>
           </div>
 
@@ -120,19 +120,19 @@ function AdminImport({ onImportComplete, onDataReady }) {
                 onDragLeave={() => setDragOver(false)}
                 onDrop={handleDrop}
                 onClick={() => document.getElementById('fileInput').click()}
-                style={{ border: `2px dashed ${dragOver ? '#6366f1' : file ? '#10b981' : 'rgba(99,102,241,0.25)'}`, borderRadius: '12px', padding: '32px 24px', textAlign: 'center', cursor: 'pointer', background: dragOver ? 'rgba(99,102,241,0.05)' : file ? 'rgba(16,185,129,0.04)' : 'rgba(255,255,255,0.02)', transition: 'all 0.2s', marginBottom: '14px' }}
+                style={{ border: `2px dashed ${dragOver ? '#E87722' : file ? '#10b981' : 'rgba(232,119,34,0.25)'}`, borderRadius: '12px', padding: '32px 24px', textAlign: 'center', cursor: 'pointer', background: dragOver ? 'rgba(232,119,34,0.05)' : file ? 'rgba(16,185,129,0.04)' : 'rgba(27,75,154,0.05)', transition: 'all 0.2s', marginBottom: '14px' }}
               >
                 <input id="fileInput" type="file" accept=".csv,.txt,.xlsx" style={{ display: 'none' }} onChange={e => setFile(e.target.files[0])} />
                 <div style={{ fontSize: '26px', marginBottom: '8px' }}>{file ? '✅' : '📂'}</div>
                 {file ? (
                   <>
                     <p style={{ color: '#10b981', fontWeight: '600', fontSize: '14px' }}>{file.name}</p>
-                    <p style={{ color: '#475569', fontSize: '12px', marginTop: '3px' }}>{(file.size / 1024).toFixed(1)} KB · Cliquez pour changer</p>
+                    <p style={{ color: '#4A6A96', fontSize: '12px', marginTop: '3px' }}>{(file.size / 1024).toFixed(1)} KB · Cliquez pour changer</p>
                   </>
                 ) : (
                   <>
-                    <p style={{ color: '#64748b', fontSize: '13px', fontWeight: '500' }}>Glissez un fichier ou cliquez pour parcourir</p>
-                    <p style={{ color: '#334155', fontSize: '11px', marginTop: '4px' }}>CSV · TXT · XLSX</p>
+                    <p style={{ color: '#607CA8', fontSize: '13px', fontWeight: '500' }}>Glissez un fichier ou cliquez pour parcourir</p>
+                    <p style={{ color: '#2E4A72', fontSize: '11px', marginTop: '4px' }}>CSV · TXT · XLSX</p>
                   </>
                 )}
               </div>
@@ -140,7 +140,7 @@ function AdminImport({ onImportComplete, onDataReady }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <span style={labelStyle}>Séparateur</span>
                   {[';', ',', '|', '\t'].map(s => (
-                    <button key={s} onClick={() => setSeparator(s)} style={{ padding: '6px 13px', borderRadius: '7px', border: `1px solid ${separator === s ? 'rgba(99,102,241,0.5)' : 'rgba(255,255,255,0.07)'}`, background: separator === s ? 'rgba(99,102,241,0.12)' : 'transparent', color: separator === s ? '#a5b4fc' : '#64748b', fontFamily: 'monospace', fontSize: '13px', cursor: 'pointer' }}>
+                    <button key={s} onClick={() => setSeparator(s)} style={{ padding: '6px 13px', borderRadius: '7px', border: `1px solid ${separator === s ? 'rgba(232,119,34,0.5)' : 'rgba(44,123,229,0.12)'}`, background: separator === s ? 'rgba(232,119,34,0.12)' : 'transparent', color: separator === s ? '#FFA94D' : '#607CA8', fontFamily: 'monospace', fontSize: '13px', cursor: 'pointer' }}>
                       {s === '\t' ? 'TAB' : s}
                     </button>
                   ))}
@@ -156,7 +156,7 @@ function AdminImport({ onImportComplete, onDataReady }) {
                 <span style={labelStyle}>Type</span>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   {['PostgreSQL', 'Databricks'].map(t => (
-                    <button key={t} onClick={() => setDbConfig({ ...dbConfig, type: t })} style={{ padding: '8px 16px', borderRadius: '8px', border: `1px solid ${dbConfig.type === t ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.07)'}`, background: dbConfig.type === t ? 'rgba(99,102,241,0.1)' : 'transparent', color: dbConfig.type === t ? '#a5b4fc' : '#64748b', fontFamily: 'inherit', fontSize: '13px', cursor: 'pointer' }}>{t}</button>
+                    <button key={t} onClick={() => setDbConfig({ ...dbConfig, type: t })} style={{ padding: '8px 16px', borderRadius: '8px', border: `1px solid ${dbConfig.type === t ? 'rgba(232,119,34,0.4)' : 'rgba(44,123,229,0.12)'}`, background: dbConfig.type === t ? 'rgba(232,119,34,0.1)' : 'transparent', color: dbConfig.type === t ? '#FFA94D' : '#607CA8', fontFamily: 'inherit', fontSize: '13px', cursor: 'pointer' }}>{t}</button>
                   ))}
                 </div>
               </div>
@@ -172,8 +172,8 @@ function AdminImport({ onImportComplete, onDataReady }) {
                     <span style={labelStyle}>{f.label}</span>
                     <input name={f.name} type={f.type || 'text'} placeholder={f.placeholder} onChange={handleDbChange}
                       style={{ ...inputBase, width: '100%', boxSizing: 'border-box' }}
-                      onFocus={e => e.target.style.borderColor = '#6366f1'}
-                      onBlur={e => e.target.style.borderColor = 'rgba(99,102,241,0.2)'}
+                      onFocus={e => e.target.style.borderColor = '#E87722'}
+                      onBlur={e => e.target.style.borderColor = 'rgba(232,119,34,0.2)'}
                     />
                   </div>
                 ))}
@@ -183,12 +183,12 @@ function AdminImport({ onImportComplete, onDataReady }) {
 
           <button onClick={handleSourceAction} disabled={!canSubmit} style={{
             marginTop: '20px', width: '100%', padding: '13px',
-            background: canSubmit ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : 'rgba(99,102,241,0.12)',
-            border: 'none', borderRadius: '10px', color: canSubmit ? 'white' : '#475569',
+            background: canSubmit ? 'linear-gradient(135deg,#E87722,#1B4B9A)' : 'rgba(232,119,34,0.12)',
+            border: 'none', borderRadius: '10px', color: canSubmit ? 'white' : '#4A6A96',
             fontFamily: 'inherit', fontSize: '14px', fontWeight: '600',
             cursor: canSubmit ? 'pointer' : 'not-allowed', transition: 'all 0.2s',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-            boxShadow: canSubmit ? '0 4px 20px rgba(99,102,241,0.3)' : 'none',
+            boxShadow: canSubmit ? '0 4px 20px rgba(232,119,34,0.3)' : 'none',
           }}
             onMouseEnter={e => { if (canSubmit) e.currentTarget.style.transform = 'translateY(-1px)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; }}
@@ -215,13 +215,13 @@ function AdminImport({ onImportComplete, onDataReady }) {
                   <h3 style={{ fontSize: '15px', fontWeight: '700', color: '#f1f5f9' }}>Aperçu des données</h3>
                   <span style={{ fontSize: '10px', padding: '2px 9px', borderRadius: '20px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: '#6ee7b7', fontWeight: '600' }}>CHARGÉ</span>
                 </div>
-                <p style={{ fontSize: '11.5px', color: '#475569' }}>{allRows.length.toLocaleString('fr-FR')} lignes · {columns.length} colonnes importées</p>
+                <p style={{ fontSize: '11.5px', color: '#4A6A96' }}>{allRows.length.toLocaleString('fr-FR')} lignes · {columns.length} colonnes importées</p>
               </div>
               <button onClick={() => setIsValidated(true)} style={{
-                padding: '10px 20px', background: 'linear-gradient(135deg,#06b6d4,#0891b2)',
+                padding: '10px 20px', background: 'linear-gradient(135deg,#2C7BE5,#1A6BC5)',
                 border: 'none', borderRadius: '10px', color: 'white',
                 fontFamily: 'inherit', fontSize: '13px', fontWeight: '600', cursor: 'pointer',
-                boxShadow: '0 4px 16px rgba(6,182,212,0.25)', transition: 'all 0.2s',
+                boxShadow: '0 4px 16px rgba(44,123,229,0.25)', transition: 'all 0.2s',
                 display: 'flex', alignItems: 'center', gap: '7px',
               }}
                 onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
@@ -238,7 +238,7 @@ function AdminImport({ onImportComplete, onDataReady }) {
       <style>{`
         @keyframes spin{to{transform:rotate(360deg)}}
         @keyframes fadeSlideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-        input::placeholder{color:#334155}
+        input::placeholder{color:#2E4A72}
       `}</style>
     </div>
   );

@@ -20,31 +20,31 @@ function App() {
   const breadcrumb  = PAGES.slice(1, PAGES.indexOf(page) + 1).filter(() => isLoggedIn);
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#0a0e1a 0%,#0d1224 50%,#0a0f1e 100%)', fontFamily: "'DM Sans','Segoe UI',sans-serif" }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#04091A 0%,#060E22 50%,#04091A 100%)', fontFamily: "'DM Sans','Segoe UI',sans-serif" }}>
 
       {/* Blobs */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', overflow: 'hidden', zIndex: 0 }}>
-        <div style={{ position: 'absolute', width: '700px', height: '700px', borderRadius: '50%', top: '-250px', left: '-150px', background: 'radial-gradient(circle,rgba(99,102,241,0.07) 0%,transparent 70%)' }} />
-        <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', bottom: 0, right: '-150px', background: 'radial-gradient(circle,rgba(6,182,212,0.06) 0%,transparent 70%)' }} />
+        <div style={{ position: 'absolute', width: '700px', height: '700px', borderRadius: '50%', top: '-250px', left: '-150px', background: 'radial-gradient(circle,rgba(232,119,34,0.07) 0%,transparent 70%)' }} />
+        <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', bottom: 0, right: '-150px', background: 'radial-gradient(circle,rgba(44,123,229,0.06) 0%,transparent 70%)' }} />
       </div>
 
       {/* Navbar */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid rgba(99,102,241,0.15)', backdropFilter: 'blur(20px)', background: 'rgba(10,14,26,0.85)', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
+      <nav style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid rgba(232,119,34,0.15)', backdropFilter: 'blur(20px)', background: 'rgba(4,9,26,0.88)', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
         {/* Logo + breadcrumb */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div onClick={() => setPage(isLoggedIn ? 'dashboard' : 'home')} style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
-            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'linear-gradient(135deg,#6366f1,#06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: '800', color: 'white', boxShadow: '0 0 20px rgba(99,102,241,0.4)' }}>P</div>
-            <span style={{ fontSize: '17px', fontWeight: '700', letterSpacing: '-0.3px', color: '#f1f5f9' }}>Profiling<span style={{ color: '#6366f1' }}>.</span>ai</span>
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'linear-gradient(135deg, #E87722, #1B3568)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: '800', color: 'white', boxShadow: '0 0 20px rgba(232,119,34,0.4)' }}>P</div>
+            <span style={{ fontSize: '17px', fontWeight: '700', letterSpacing: '-0.3px', color: '#f1f5f9' }}>Profiling<span style={{ color: '#E87722', fontWeight: '900' }}>.</span>ai</span>
           </div>
           {isLoggedIn && page !== 'home' && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginLeft: '8px' }}>
               {breadcrumb.map((p, i) => (
                 <span key={p} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  {i > 0 && <span style={{ color: '#1e293b', fontSize: '12px' }}>›</span>}
-                  <span onClick={() => setPage(p)} style={{ fontSize: '12px', color: p === page ? '#a5b4fc' : '#334155', cursor: p === page ? 'default' : 'pointer', fontWeight: p === page ? '600' : '400', transition: 'color 0.2s' }}
-                    onMouseEnter={e => { if (p !== page) e.currentTarget.style.color = '#64748b'; }}
-                    onMouseLeave={e => { if (p !== page) e.currentTarget.style.color = '#334155'; }}
+                  {i > 0 && <span style={{ color: '#162140', fontSize: '12px' }}>›</span>}
+                  <span onClick={() => setPage(p)} style={{ fontSize: '12px', color: p === page ? '#FFA94D' : '#2E4A72', cursor: p === page ? 'default' : 'pointer', fontWeight: p === page ? '600' : '400', transition: 'color 0.2s' }}
+                    onMouseEnter={e => { if (p !== page) e.currentTarget.style.color = '#607CA8'; }}
+                    onMouseLeave={e => { if (p !== page) e.currentTarget.style.color = '#2E4A72'; }}
                   >{PAGE_LABELS[p]}</span>
                 </span>
               ))}
@@ -56,7 +56,7 @@ function App() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: '11px', color: '#475569', letterSpacing: '0.5px' }}>SYSTÈME ACTIF</span>
+            <span style={{ fontSize: '11px', color: '#4A6A96', letterSpacing: '0.5px' }}>SYSTÈME ACTIF</span>
           </div>
           {isLoggedIn && (
             <div style={{ display: 'flex', gap: '3px' }}>
@@ -67,9 +67,9 @@ function App() {
               ].map(tab => (
                 <button key={tab.id} onClick={() => setPage(tab.id)} style={{
                   padding: '6px 12px',
-                  background: page === tab.id ? 'rgba(99,102,241,0.15)' : 'transparent',
-                  border: page === tab.id ? '1px solid rgba(99,102,241,0.35)' : '1px solid transparent',
-                  borderRadius: '8px', color: page === tab.id ? '#a5b4fc' : '#475569',
+                  background: page === tab.id ? 'rgba(232,119,34,0.15)' : 'transparent',
+                  border: page === tab.id ? '1px solid rgba(232,119,34,0.5)' : '1px solid transparent',
+                  borderRadius: '8px', color: page === tab.id ? '#FFA94D' : '#4A6A96',
                   fontFamily: 'inherit', fontSize: '12px', fontWeight: page === tab.id ? '600' : '400',
                   cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '5px',
                 }}>
@@ -108,12 +108,12 @@ function App() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
         *{box-sizing:border-box;margin:0;padding:0}
-        body{background:#0a0e1a}
+        body{background:#04091A}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
         @keyframes fadeSlideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
         ::-webkit-scrollbar{width:6px}
-        ::-webkit-scrollbar-track{background:#0a0e1a}
-        ::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px}
+        ::-webkit-scrollbar-track{background:#04091A}
+        ::-webkit-scrollbar-thumb{background:#162140;border-radius:3px}
       `}</style>
     </div>
   );
