@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine, Legend,
@@ -137,7 +137,7 @@ function ClusteringConfig({ columns, onComplete }) {
     // ── Mode existant : POST classique ────────────────────────────────────
     if (mode === 'existing') {
       try {
-        const r = await axios.post('http://localhost:5000/api/clustering/config', { mode: 'existing', targetColumn: segmentColumn });
+        const r = await api.post('http://localhost:5000/api/clustering/config', { mode: 'existing', targetColumn: segmentColumn });
         setMessage({ type: 'success', text: r.data.message });
         setTimeout(() => onComplete(), 1800);
       } catch {
@@ -150,7 +150,8 @@ function ClusteringConfig({ columns, onComplete }) {
 
     // ── Mode new : SSE → pipeline Python ─────────────────────────────────
     const featuresParam = selectedFeatures.join(',');
-    const url = `http://localhost:5000/api/clustering/run?features=${encodeURIComponent(featuresParam)}&n_clusters=${nClusters}`;
+    const token = localStorage.getItem('profiling_token') || '';
+    const url = `http://localhost:5000/api/clustering/run?features=${encodeURIComponent(featuresParam)}&n_clusters=${nClusters}&token=${token}`;
 
     addStep('progress', 'Connexion au pipeline Python…');
 
