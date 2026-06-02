@@ -13,8 +13,14 @@ const JWT_EXPIRES = process.env.JWT_EXPIRES || '8h';
 const ADMIN_USER     = process.env.ADMIN_USERNAME || 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
-// Hash bcrypt du mot de passe (généré une seule fois au démarrage du serveur)
-const ADMIN_HASH = bcrypt.hashSync(ADMIN_PASSWORD, 10);
+// Hash bcrypt — mutable pour permettre le changement de mot de passe en session
+let ADMIN_HASH = bcrypt.hashSync(ADMIN_PASSWORD, 10);
+// Historique des actions (stocké en mémoire par session)
+const sessionHistory = [];
+function addHistory(action, detail) {
+  sessionHistory.unshift({ action, detail, at: new Date().toISOString() });
+  if (sessionHistory.length > 50) sessionHistory.pop();
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ROUTE  POST /api/auth/login
@@ -106,4 +112,41 @@ function requireAuth(req, res, next) {
   }
 }
 
-module.exports = { router, requireAuth };
+// ─────────────────────────────────────────────────────────────────────────────
+// ROUTE  POST /api/auth/change-password
+// Body : { currentPassword, newPassword }
+// ─────────────────────────────────────────────────────────────────────────────
+router.post('/change-password', async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword)
+    return res.status(400).json({ error: 'currentPassword et newPassword requis.' });
+  if (newPassword.length < 6)
+    return res.status(400).json({ error: 'Le nouveau mot de passe doit faire au moins 6 caractères.' });
+
+  // Vérifie le token JWT dans le header
+  const auth = req.headers.authorization;
+  if (!auth?.startsWith('Bearer '))
+    return res.status(401).json({ error: 'Non authentifié.' });
+  try { jwt.verify(auth.split(' ')[1], JWT_SECRET); }
+  catch { return res.status(401).json({ error: 'Token invalide ou expiré.' }); }
+
+  const valid = await bcrypt.compare(currentPassword, ADMIN_HASH);
+  if (!valid) return res.status(401).json({ error: 'Mot de passe actuel incorrect.' });
+
+  ADMIN_HASH = await bcrypt.hash(newPassword, 10);
+  addHistory('Changement de mot de passe', 'Mot de passe mis à jour avec succès.');
+  console.log('[auth] Mot de passe admin modifié.');
+  return res.json({ message: 'Mot de passe mis à jour. Reconnectez-vous avec le nouveau mot de passe.' });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ROUTE  GET /api/auth/history  — historique des actions de la session
+// ─────────────────────────────────────────────────────────────────────────────
+router.get('/history', (req, res) => {
+  res.json({ history: sessionHistory });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EXPORT addHistory pour l'utiliser dans server.js
+// ─────────────────────────────────────────────────────────────────────────────
+module.exports = { router, requireAuth, addHistory };

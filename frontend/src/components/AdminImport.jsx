@@ -134,7 +134,7 @@ function PgConnector({ onLoaded }) {
     try {
       const r = await api.post('/api/data/load', { dbConfig, tableName:selTable, limit:parseInt(rowLimit)||100000 });
       setMsg({ type:'success', text:r.data.message });
-      onLoaded(r.data.columns, r.data.allRows, r.data.message);
+      onLoaded(r.data.columns, r.data.previewData||[], r.data.message);
     } catch(e) { setMsg({ type:'error', text:e.response?.data?.error||e.message }); }
     finally { setLoading(false); }
   };
@@ -247,7 +247,7 @@ function DatabricksConnector({ onLoaded }) {
     try {
       const r = await api.post('/api/data/load', { dbConfig, tableName:selTable, limit:parseInt(rowLimit)||100000 });
       setMsg({ type:'success', text:r.data.message });
-      onLoaded(r.data.columns, r.data.allRows, r.data.message);
+      onLoaded(r.data.columns, r.data.previewData||[], r.data.message);
     } catch(e) { setMsg({ type:'error', text:e.response?.data?.error||e.message }); }
     finally { setLoading(false); }
   };
@@ -410,14 +410,15 @@ function AdminImport({ onImportComplete, onDataReady }) {
       if (file.name.endsWith('.csv')||file.name.endsWith('.txt')) fd.append('separator', separator);
       const r = await api.post('/api/data/import', fd);
       setMessage({ type:'success', text:r.data.message });
-      setColumns(r.data.columns); setAllRows(r.data.allRows||[]);
+      // On stocke seulement un aperçu en local - la table complète passe par /api/data/rows
+      setColumns(r.data.columns); setAllRows(r.data.previewData||[]);
       if (onDataReady) onDataReady(r.data.columns, r.data.allRows||[]);
     } catch(e) { setMessage({ type:'error', text:e.response?.data?.error||"Échec de l'import." }); }
     finally { setIsProcessing(false); }
   };
 
   const handleDbLoaded = (cols, rows, msg) => {
-    setColumns(cols); setAllRows(rows);
+    setColumns(cols); setAllRows(rows.slice(0, 10)); // aperçu seulement
     setMessage({ type:'success', text:msg });
     if (onDataReady) onDataReady(cols, rows);
   };

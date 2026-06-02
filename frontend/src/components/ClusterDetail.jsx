@@ -179,7 +179,7 @@ function ClusterDetail({ onBack }) {
       </div>
 
       {/* Pareto Chart */}
-      <div style={{ ...glass, padding:'28px', marginBottom:'20px', animation:'fadeSlideUp 0.5s 0.1s ease both', opacity:0 }}>
+      <div style={{ ...glass, padding:'28px', marginBottom:'20px', animation:'fadeSlideUp 0.5s 0.1s ease both' }}>
         <p style={{ fontSize:'13px', fontWeight:'700', color:'#e2e8f0', marginBottom:'2px' }}>
           Diagramme de Pareto — {detected.amount?'Contribution au CA':'Volume clients'}
         </p>
@@ -212,7 +212,7 @@ function ClusterDetail({ onBack }) {
       </div>
 
       {/* Tabs segments */}
-      <div style={{ display:'flex', gap:'8px', marginBottom:'16px', flexWrap:'wrap', animation:'fadeSlideUp 0.5s 0.2s ease both', opacity:0 }}>
+      <div style={{ display:'flex', gap:'8px', marginBottom:'16px', flexWrap:'wrap', animation:'fadeSlideUp 0.5s 0.2s ease both' }}>
         {segments.map((s,i)=>{
           const isVital=pareto.find(p=>p.name===s.name)?.isVital;
           return (
